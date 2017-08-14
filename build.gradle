@@ -1,0 +1,69 @@
+group 'test-framework'
+version '1.0-SNAPSHOT'
+description 'Example of testing framework in java for UI and API'
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.opengl-8080:assertjGen-gradle-plugin:1.1.4"
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-RC2'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: "jacoco"
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+jacoco {
+    toolVersion = '0.7.6.201602180812'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+task codeCoverageReport(type: JacocoReport, dependsOn: ['test']) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    projects.each {
+        sourceSets.main
+    }
+
+    reports {
+        xml.enabled true
+        xml.destination "${buildDir}/reports/jacoco/report.xml"
+        html.enabled false
+        csv.enabled false
+    }
+}
+
+dependencies {
+    testCompile(
+            ['group: junit, name: junit, version: 4.12'],
+            ['org.junit.jupiter:junit-jupiter-api:5.0.0-RC2']
+    )
+    compileOnly(
+            ['org.projectlombok:lombok:1.16.16'],
+    )
+    testRuntime(
+            ['org.junit.jupiter:junit-jupiter-engine:5.0.0-RC2']
+    )
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion '4.0'
+}
