@@ -7,16 +7,18 @@ buildscript {
         maven {
             url "https://plugins.gradle.org/m2/"
         }
+        jcenter()
     }
     dependencies {
         classpath "gradle.plugin.com.github.opengl-8080:assertjGen-gradle-plugin:1.1.4"
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-RC2'
+        classpath 'org.jsonschema2pojo:jsonschema2pojo-gradle-plugin:0.4.35'
     }
 }
 
 apply plugin: 'java'
-apply plugin: "jacoco"
-apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'jacoco'
+apply plugin: 'com.github.opengl-BOBO.assertjGen'
+apply plugin: 'jsonschema2pojo'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -36,6 +38,15 @@ jacocoTestReport {
     }
 }
 
+test {
+    ignoreFailures = true
+    testLogging.exceptionFormat = 'full'
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    systemProperties System.properties
+}
+
 task codeCoverageReport(type: JacocoReport, dependsOn: ['test']) {
     executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
 
@@ -52,18 +63,35 @@ task codeCoverageReport(type: JacocoReport, dependsOn: ['test']) {
 }
 
 dependencies {
+    compile(
+            ['org.aeonbits.owner:owner:1.0.9'],
+            ['org.jsonschema2pojo:jsonschema2pojo-core:0.4.37'],
+    )
     testCompile(
-            ['group: junit, name: junit, version: 4.12'],
-            ['org.junit.jupiter:junit-jupiter-api:5.0.0-RC2']
+            [group: 'junit', name: 'junit', version: '4.12'],
+            ['org.assertj:assertj-core:3.8.0'],
+            ['org.assertj:assertj-assertions-generator-maven-plugin:2.0.0']
     )
     compileOnly(
             ['org.projectlombok:lombok:1.16.16'],
-    )
-    testRuntime(
-            ['org.junit.jupiter:junit-jupiter-engine:5.0.0-RC2']
     )
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion '4.0'
+}
+
+assertjGen {
+    classOrPackageNames = ['beans']
+    outputDir = 'src/test/java/matchers'
+}
+
+jsonSchema2Pojo {
+    source = files("${sourceSets.main.output.resourcesDir}/responses")
+    targetDirectory = file("${project.buildDir}/generated-sources/js2p")
+    sourceType = 'json'
+    removeOldOutput = false
+    includeConstructors = true
+    useLongIntegers = true
+    includeAccessors = true
 }
