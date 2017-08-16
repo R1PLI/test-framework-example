@@ -1,4 +1,4 @@
-package beans;
+package api.beans;
 
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.util.Objects;
@@ -78,7 +78,7 @@ public class PostAssert extends AbstractAssert<PostAssert, Post> {
    * @return this assertion object.
    * @throws AssertionError - if the actual Post's id is not equal to the given one.
    */
-  public PostAssert hasId(Long id) {
+  public PostAssert hasId(Integer id) {
     // check that actual Post we want to make assertions on is not null.
     isNotNull();
 
@@ -86,7 +86,7 @@ public class PostAssert extends AbstractAssert<PostAssert, Post> {
     String assertjErrorMessage = "\nExpecting id of:\n  <%s>\nto be:\n  <%s>\nbut was:\n  <%s>";
     
     // null safe check
-    Long actualId = actual.getId();
+    Integer actualId = actual.getId();
     if (!Objects.areEqual(actualId, id)) {
       failWithMessage(assertjErrorMessage, actual, id, actualId);
     }

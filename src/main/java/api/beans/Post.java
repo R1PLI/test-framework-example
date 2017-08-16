@@ -1,4 +1,4 @@
-package beans;
+package api.beans;
 
 import com.fasterxml.jackson.annotation.*;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class Post {
 
     @JsonProperty("id")
-    private Long id;
+    private Integer id;
     @JsonProperty("title")
     private String title;
     @JsonProperty("author")
@@ -38,7 +38,7 @@ public class Post {
      * @param id
      * @param title
      */
-    public Post(Long id, String title, String author) {
+    public Post(Integer id, String title, String author) {
         super();
         this.id = id;
         this.title = title;
@@ -46,12 +46,12 @@ public class Post {
     }
 
     @JsonProperty("id")
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
     @JsonProperty("id")
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

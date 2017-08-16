@@ -1,10 +1,11 @@
 package api;
 
-import beans.Post;
+import api.mappers.IPost;
+import api.beans.Post;
 import org.aeonbits.owner.ConfigFactory;
 import org.junit.Test;
 
-import static beans.PostAssert.assertThat;
+import static api.beans.PostAssert.assertThat;
 
 public class BaseTest {
 	@Test
@@ -12,6 +13,11 @@ public class BaseTest {
 		IPost iPost = ConfigFactory.create(IPost.class);
 		Post post = new Post();
 		post.setId(iPost.id());
-		assertThat(post).hasId(1L);
+		assertThat(post).hasId(1);
+	}
+
+	@Test
+	public void restAssuredTest() {
+		
 	}
 }

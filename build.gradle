@@ -82,7 +82,7 @@ task wrapper(type: Wrapper) {
 }
 
 assertjGen {
-    classOrPackageNames = ['beans']
+    classOrPackageNames = ['api.beans']
     outputDir = 'src/test/java/matchers'
 }
 
@@ -92,6 +92,6 @@ jsonSchema2Pojo {
     sourceType = 'json'
     removeOldOutput = false
     includeConstructors = true
-    useLongIntegers = true
+    useLongIntegers = false
     includeAccessors = true
 }
