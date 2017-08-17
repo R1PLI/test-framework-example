@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 public class CommentPojoFromService {
 	private static RequestSpecification commentsReq = getSpec("http://localhost:3000/comments");
 
-	public static <T> T responseQuery(int postId, Class<T> tClass) {
+	private static <T> T responseQuery(int postId, Class<T> tClass) {
 		return
 			given()
 				.spec(commentsReq)

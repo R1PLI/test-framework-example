@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 public class PostPojoFromService {
 	private static RequestSpecification postsReq = getSpec("http://localhost:3000/posts");
 
-	public static <T> T responseQuery(int postId, Class<T> tClass) {
+	private static <T> T responseQuery(int postId, Class<T> tClass) {
 		return
 			given()
 				.spec(postsReq)
