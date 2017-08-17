@@ -1,24 +1,17 @@
 package api.helper;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
 public class UrlHelper {
 
 	private String protocol;
 	private String host;
 	private String endpoint;
 
-	public void UrlHelper(String protocol, String host, String endpoint) {
-		this.protocol = protocol;
-		this.host = host;
-		this.endpoint = endpoint;
-	}
-
 	public String urlBuilder() {
-		return getProtocol() + getHost() + getEndpoint();
+		return protocol + host + endpoint;
 	}
 }

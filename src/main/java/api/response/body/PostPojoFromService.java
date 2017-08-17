@@ -1,18 +1,15 @@
 package api.response.body;
 
 import api.beans.Post;
-import io.restassured.specification.RequestSpecification;
 
 import static api.config.Specification.getSpec;
 import static io.restassured.RestAssured.given;
 
 public class PostPojoFromService {
-	private static RequestSpecification postsReq = getSpec("http://localhost:3000/posts");
-
-	private static <T> T responseQuery(int postId, Class<T> tClass) {
+	private static <T> T getResponseQuery(int postId, Class<T> tClass, String url) {
 		return
 			given()
-				.spec(postsReq)
+				.spec(getSpec(url))
 				.when()
 				.get("/{id}", postId)
 				.then()
@@ -20,7 +17,7 @@ public class PostPojoFromService {
 				.response().as(tClass);
 	}
 
-	public static Post postResponseQuery(int postId) {
-		return responseQuery(postId, Post.class);
+	public static Post postResponseQuery(int postId, String url) {
+		return getResponseQuery(postId, Post.class, url);
 	}
 }
