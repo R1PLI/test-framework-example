@@ -60,8 +60,7 @@ task codeCoverageReport(type: JacocoReport, dependsOn: ['test']) {
 
 dependencies {
     testCompile(
-            ['group: junit, name: junit, version: 4.12'],
-            ['org.junit.jupiter:junit-jupiter-api:5.0.0-RC2']
+            [ 'junit:junit:4.12']
     )
     compileOnly(
             ['org.projectlombok:lombok:1.16.16'],
