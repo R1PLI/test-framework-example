@@ -6,31 +6,18 @@ import api.helper.UrlHelper;
 import api.mappers.IComment;
 import api.mappers.IService;
 import org.aeonbits.owner.ConfigFactory;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static api.response.body.CommentPojoFromService.commentResponseQuery;
+import static api.response.body.PojoFromService.commentsResponseQuery;
 
 public class CommentsTest {
-	private static IComment iComment;
-	private static IService iService;
-	private static UrlHelper url;
-
-	@BeforeClass
-	public static void propInit() {
-		iComment = ConfigFactory.create(IComment.class);
-		iService = ConfigFactory.create(IService.class);
-
-		url = new UrlHelper(
-			iService.protocol(),
-			iService.host(),
-			iService.comments()
-		);
-	}
+	private static IComment iComment = ConfigFactory.create(IComment.class);
+	private static IService iService = ConfigFactory.create(IService.class);
+	private static UrlHelper url = new UrlHelper(iService.protocol(), iService.host(), iService.comments());
 
 	@Test
 	public void restAssuredCommentsBodyTest() {
-		BodyAssert.assertThat(commentResponseQuery(1, url.urlBuilder())
+		BodyAssert.assertThat(commentsResponseQuery(1, url.urlBuilder())
 			.getBody()
 		).hasSomeComment(iComment.bodyComment()
 			.getSomeComment()
@@ -40,7 +27,7 @@ public class CommentsTest {
 	@Test
 	public void restAssuredCommentsPostTest() {
 		CommentAssert.assertThat(
-			commentResponseQuery(1, url.urlBuilder())
+			commentsResponseQuery(1, url.urlBuilder())
 		).hasPostComment(iComment.postComment());
 	}
 }

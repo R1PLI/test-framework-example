@@ -1,13 +1,12 @@
 package api.response.body;
 
 import api.beans.Comment;
+import api.beans.Post;
 
 import static api.config.Specification.getSpec;
 import static io.restassured.RestAssured.given;
 
-//TODO: remove redundant class if there are no sense in it
-@Deprecated
-public class CommentPojoFromService {
+public class PojoFromService {
 	private static <T> T getResponseQuery(int postId, Class<T> tClass, String url) {
 		return
 			given()
@@ -19,7 +18,19 @@ public class CommentPojoFromService {
 				.response().as(tClass);
 	}
 
-	public static Comment commentResponseQuery(int postId, String url) {
+	public static void postRequest(String url, String jsonBody) {
+		given()
+			.spec(getSpec(url))
+			.body(jsonBody)
+		.when()
+			.post();
+	}
+
+	public static Post postsResponseQuery(int postId, String url) {
+		return getResponseQuery(postId, Post.class, url);
+	}
+
+	public static Comment commentsResponseQuery(int postId, String url) {
 		return getResponseQuery(postId, Comment.class, url);
 	}
 }
