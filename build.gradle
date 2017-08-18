@@ -59,14 +59,29 @@ task codeCoverageReport(type: JacocoReport, dependsOn: ['test']) {
 }
 
 dependencies {
+    compile(
+            ['com.codeborne:selenide:4.4.3'],
+    )
     testCompile(
-            [ 'junit:junit:4.12']
+            ['org.testng:testng:6.9.10'],
+            ['org.assertj:assertj-core:3.8.0'],
+
     )
     compileOnly(
-            ['org.projectlombok:lombok:1.16.16'],
+            ['org.projectlombok:lombok:1.16.16']
     )
 }
 
 task wrapper(type: Wrapper) {
     gradleVersion '4.0'
+}
+
+test {
+    systemProperties = [
+            'selenide.browser'        : 'chrome',
+            'file.encoding'           : 'UTF-8',
+            'webdriver.chrome.driver' : "src/main/resources/drivers/chromedriver.exe",
+            'selenide.start-maximized': false
+    ]
+    useTestNG()
 }
