@@ -1,7 +1,8 @@
 package ui;
 
 import com.codeborne.selenide.Configuration;
-import org.testng.annotations.BeforeMethod;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ui.page.GmailMainPage;
 import ui.page.SearchPage;
@@ -13,28 +14,28 @@ public class BaseTest {
 	private SearchPage searchPage;
 	private GmailMainPage gmailMainPage;
 
-	@BeforeMethod
-	public void setUp() {
-
-		searchPage = new SearchPage();
-		gmailMainPage = new GmailMainPage();
+	@BeforeClass
+	public void driverSetUp() {
+		ChromeDriverManager.getInstance().setup();
+		Configuration.browser = "chrome";
 	}
-
 
 	@Test
 	public void baseOpenTest() {
 		Configuration.baseUrl = "http://google.co.uk";
-		searchPage.open()
+		new SearchPage().open()
 			.search("Selenide")
 			.verifySearchResult(10);
 	}
 
 	@Test
 	public void fullTest() {
-		Configuration.baseUrl = "http://accounts.google.com";
-		assertThat(gmailMainPage.open()
+		Configuration.baseUrl = "https://gmail.com";
+		assertThat(new GmailMainPage()
+			.open()
+			.clickSignInButton()
 			.submitCreds("EpamFinalTask17", "tinker11")
-			.areaLabel()
+			.getTextFromAreaLabel()
 		).isEqualTo("Oleksandr Pochernin");
 	}
 }

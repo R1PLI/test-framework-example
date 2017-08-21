@@ -13,7 +13,7 @@ public class InboxPage implements IPage{
 
 	private static final By ariaLabel = By.xpath("//*[@aria-label=\"Account Information\"]/div[1]/div[1]/div[1]");
 
-	public String areaLabel() {
+	public String getTextFromAreaLabel() {
 		$(By.xpath("//*[@id=\"gb\"]/div[1]/div[1]/div[2]/div[5]")).click();
 		return $(ariaLabel).getText();
 	}
