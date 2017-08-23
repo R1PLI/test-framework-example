@@ -11,7 +11,6 @@ import ui.page.GmailMainPage;
 import ui.page.LoginPage;
 import ui.page.SearchPage;
 
-
 abstract public class BaseTest {
 
 	protected GmailMainPage gmailMainPage;

@@ -8,8 +8,6 @@ import ui.core.DataSuppliers;
 
 public class GoogleSearchTest extends BaseTest {
 
-
-
 	@BeforeClass
 	public void config() {
 		Configuration.baseUrl = config.google();
