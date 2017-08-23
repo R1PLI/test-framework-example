@@ -24,4 +24,14 @@ public class GmailTest extends BaseTest {
 			.getTextFromAreaLabel()
 		).isEqualTo(user.name());
 	}
+
+	@Test
+	public void anotherFullTest() {
+		final String userName = gmailMainPage.open()
+			.clickSignInButton()
+			.submitCreds(user.login(), user.password())
+			.getTextFromAreaLabel();
+
+		assertThat(userName).isEqualTo(user.name());
+	}
 }
