@@ -4,18 +4,21 @@ import com.codeborne.selenide.Configuration;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ui.core.BaseTest;
+import ui.core.DataSuppliers;
 
 public class GoogleSearchTest extends BaseTest {
 
+
+
 	@BeforeClass
 	public void config() {
-		Configuration.baseUrl = "http://google.co.uk";
+		Configuration.baseUrl = config.google();
 	}
 
-	@Test
-	public void baseOpenTest() {
+	@Test(dataProvider = "Search Queries", dataProviderClass = DataSuppliers.class)
+	public void baseOpenTest(String query, int results) {
 		searchPage.open()
-			.search("Selenide")
-			.verifySearchResult(10);
+			.search(query)
+			.verifySearchResult(results);
 	}
 }

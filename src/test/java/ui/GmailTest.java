@@ -11,18 +11,17 @@ public class GmailTest extends BaseTest {
 
 	@BeforeClass
 	public void config() {
-		Configuration.baseUrl = "https://www.google.com/gmail/about";
+		Configuration.baseUrl = config.gmail();
 	}
 
 	@Test
 	public void fullTest() {
-
 		gmailMainPage.open()
 			.clickSignInButton();
 
 		assertThat(loginPage
-			.submitCreds("EpamFinalTask17", "tinker11")
+			.submitCreds(user.login(), user.password())
 			.getTextFromAreaLabel()
-		).isEqualTo("Oleksandr Pochernin");
+		).isEqualTo(user.name());
 	}
 }

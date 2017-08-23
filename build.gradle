@@ -21,6 +21,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 jacoco {
@@ -64,7 +65,9 @@ configurations.all {
 
 dependencies {
     compile(
-            ['com.codeborne:selenide:4.4.3'],
+            ['com.codeborne:selenide:4.5'],
+            ['org.aeonbits.owner:owner-java8:1.0.9'],
+            ['org.testng:testng:6.11'],
     )
     testCompile(
             ['org.testng:testng:6.9.10'],
