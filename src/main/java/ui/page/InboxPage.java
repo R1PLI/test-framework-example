@@ -1,5 +1,6 @@
 package ui.page;
 
+import com.codeborne.selenide.Selenide;
 import org.openqa.selenium.By;
 import ui.core.IPage;
 
@@ -12,6 +13,7 @@ public class InboxPage implements IPage{
 
 	@Override
 	public InboxPage open() {
+		Selenide.open("/");
 		return this;
 	}
 

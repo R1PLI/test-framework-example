@@ -15,23 +15,12 @@ public class GmailTest extends BaseTest {
 	}
 
 	@Test
-	public void fullTest() {
-		gmailMainPage.open()
-			.clickSignInButton();
-
-		assertThat(loginPage
-			.submitCreds(user.login(), user.password())
-			.getTextFromAreaLabel()
-		).isEqualTo(user.name());
-	}
-
-	@Test
 	public void anotherFullTest() {
-		final String userName = gmailMainPage.open()
+		final String actualUserName = gmailMainPage.open()
 			.clickSignInButton()
 			.submitCreds(user.login(), user.password())
 			.getTextFromAreaLabel();
 
-		assertThat(userName).isEqualTo(user.name());
+		assertThat(actualUserName).isEqualTo(user.name());
 	}
 }

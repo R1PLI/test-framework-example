@@ -8,14 +8,12 @@ import org.testng.annotations.BeforeMethod;
 import ui.core.propertymapper.TestConfig;
 import ui.core.propertymapper.UserData;
 import ui.page.GmailMainPage;
-import ui.page.LoginPage;
 import ui.page.SearchPage;
 
 abstract public class BaseTest {
 
 	protected GmailMainPage gmailMainPage;
 	protected SearchPage searchPage;
-	protected LoginPage loginPage;
 	protected UserData user = ConfigFactory.create(UserData.class);
 	protected TestConfig config = ConfigFactory.create(TestConfig.class);
 
@@ -29,6 +27,5 @@ abstract public class BaseTest {
 	public void setUp() {
 		gmailMainPage = new GmailMainPage();
 		searchPage = new SearchPage();
-		loginPage = new LoginPage();
 	}
 }

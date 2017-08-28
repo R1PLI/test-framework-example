@@ -8,7 +8,7 @@ public class DataSuppliers {
 		return new Object[][] {
 			{"Selenide", 10},
 			{"Overwatch", 7},
-			{"Motocars", 9}
+			{"Flowers", 8}
 		};
 	}
 }
