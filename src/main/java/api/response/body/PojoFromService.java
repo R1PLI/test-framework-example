@@ -19,7 +19,7 @@ public class PojoFromService {
 				.response().as(tClass);
 	}
 
-	public static <T> ExtractableResponse getStatusCodeAfterPostRequest(String url, T pojo) {
+	public static <T> ExtractableResponse getResponseEntityFromPostRequest(String url, T pojo) {
 		return
 			given()
 				.spec(getSpec(url))

@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import static api.response.body.PojoFromService.getStatusCodeAfterPostRequest;
+import static api.response.body.PojoFromService.getResponseEntityFromPostRequest;
 import static api.response.body.PojoFromService.postsResponseQuery;
 import static java.util.Arrays.asList;
 import static org.apache.http.HttpStatus.*;
@@ -50,7 +50,7 @@ public class PostsTest {
 		Post postRequest = new Post(postId, "post-test", "myself");
 
 		Assertions.assertThat(
-			getStatusCodeAfterPostRequest(url.urlBuilder(), postRequest)
+			getResponseEntityFromPostRequest(url.urlBuilder(), postRequest)
 				.statusCode()
 		).isEqualTo(SC_CREATED);
 
@@ -65,7 +65,7 @@ public class PostsTest {
 		Post postRequest = new Post(postId, "post-test", "myself");
 
 		Truth.assertThat(
-			getStatusCodeAfterPostRequest(url.urlBuilder(), postRequest)
+			getResponseEntityFromPostRequest(url.urlBuilder(), postRequest)
 				.statusCode()
 		).isAnyOf(SC_CREATED, SC_OK);
 
@@ -80,7 +80,7 @@ public class PostsTest {
 		Post postRequest = new Post(postId, "post-test", "myself");
 
 		Truth.assertThat(
-			getStatusCodeAfterPostRequest(url.urlBuilder(), postRequest)
+			getResponseEntityFromPostRequest(url.urlBuilder(), postRequest)
 				.statusCode()
 		).isIn(asList(SC_OK, SC_CREATED, SC_ACCEPTED));
 
