@@ -5,6 +5,7 @@ import api.beans.PostAssert;
 import api.helper.UrlHelper;
 import api.mappers.IPost;
 import api.mappers.IService;
+import com.google.common.truth.Truth;
 import org.aeonbits.owner.ConfigFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -35,13 +36,28 @@ public class PostsTest {
 
 	@Test
 	public void postRequestTest() {
-		int postId = 13;
+		int postId = 15;
 		Post postRequest = new Post(postId, "post-test", "myself");
 
 		Assertions.assertThat(
 			getStatusCodeAfterPostRequest(url.urlBuilder(), postRequest)
 				.statusCode()
 		).isEqualTo(SC_CREATED);
+
+		PostAssert.assertThat(
+			postsResponseQuery(postId, url.urlBuilder())
+		).hasId(postId).hasTitle("post-test").hasAuthor("myself");
+	}
+
+	@Test
+	public void postRequestUsingTruthTest() {
+		int postId = 16;
+		Post postRequest = new Post(postId, "post-test", "myself");
+
+		Truth.assertThat(
+			getStatusCodeAfterPostRequest(url.urlBuilder(), postRequest)
+				.statusCode()
+		).isAnyOf(SC_CREATED, SC_OK);
 
 		PostAssert.assertThat(
 			postsResponseQuery(postId, url.urlBuilder())
