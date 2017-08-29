@@ -74,7 +74,8 @@ dependencies {
     testCompile(
             [group: 'junit', name: 'junit', version: '4.12'],
             ['org.assertj:assertj-core:3.8.0'],
-            ['org.assertj:assertj-assertions-generator-maven-plugin:2.0.0']
+            ['org.assertj:assertj-assertions-generator-maven-plugin:2.0.0'],
+            ['com.google.truth:truth:0.35']
     )
     compileOnly(
             ['org.projectlombok:lombok:1.16.16'],
