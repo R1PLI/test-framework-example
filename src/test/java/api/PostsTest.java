@@ -8,7 +8,10 @@ import api.mappers.IService;
 import com.google.common.truth.Truth;
 import org.aeonbits.owner.ConfigFactory;
 import org.assertj.core.api.Assertions;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Random;
 
 import static api.response.body.PojoFromService.getStatusCodeAfterPostRequest;
 import static api.response.body.PojoFromService.postsResponseQuery;
@@ -18,7 +21,13 @@ import static org.apache.http.HttpStatus.*;
 public class PostsTest {
 	private static IPost iPost = ConfigFactory.create(IPost.class);
 	private static IService iService = ConfigFactory.create(IService.class);
+	private Random random;
 	private static UrlHelper url = new UrlHelper(iService.protocol(), iService.host(), iService.posts());
+
+	@Before
+	public void setUo() {
+		random = new Random();
+	}
 
 	@Test
 	public void restAssuredPositivePostsTest() {
@@ -37,7 +46,7 @@ public class PostsTest {
 
 	@Test
 	public void postRequestTest() {
-		int postId = 15;
+		int postId = random.nextInt();
 		Post postRequest = new Post(postId, "post-test", "myself");
 
 		Assertions.assertThat(
@@ -52,7 +61,7 @@ public class PostsTest {
 
 	@Test
 	public void postRequestUsingTruthsIsAnyMethodTest() {
-		int postId = 16;
+		int postId = random.nextInt();
 		Post postRequest = new Post(postId, "post-test", "myself");
 
 		Truth.assertThat(
@@ -67,7 +76,7 @@ public class PostsTest {
 
 	@Test
 	public void postRequestUsingTruthsIsInTest() {
-		int postId = 17;
+		int postId = random.nextInt();
 		Post postRequest = new Post(postId, "post-test", "myself");
 
 		Truth.assertThat(
