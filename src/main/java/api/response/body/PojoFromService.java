@@ -2,6 +2,7 @@ package api.response.body;
 
 import api.beans.Comment;
 import api.beans.Post;
+import io.restassured.response.ExtractableResponse;
 
 import static api.config.Specification.getSpec;
 import static io.restassured.RestAssured.given;
@@ -18,12 +19,15 @@ public class PojoFromService {
 				.response().as(tClass);
 	}
 
-	public static void postRequest(String url, String jsonBody) {
-		given()
-			.spec(getSpec(url))
-			.body(jsonBody)
-		.when()
-			.post();
+	public static <T> ExtractableResponse getStatusCodeAfterPostRequest(String url, T pojo) {
+		return
+			given()
+				.spec(getSpec(url))
+				.body(pojo)
+				.when()
+				.post()
+				.then()
+				.extract();
 	}
 
 	public static Post postsResponseQuery(int postId, String url) {
