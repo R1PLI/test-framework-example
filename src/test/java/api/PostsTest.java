@@ -15,8 +15,10 @@ import java.util.Random;
 
 import static api.response.body.PojoFromService.getResponseEntityFromPostRequest;
 import static api.response.body.PojoFromService.postsResponseQuery;
-import static java.util.Arrays.asList;
-import static org.apache.http.HttpStatus.*;
+import static com.google.common.primitives.Ints.asList;
+import static org.apache.http.HttpStatus.SC_ACCEPTED;
+import static org.apache.http.HttpStatus.SC_CREATED;
+import static org.apache.http.HttpStatus.SC_OK;
 
 public class PostsTest {
 	private static IPost iPost = ConfigFactory.create(IPost.class);
@@ -25,7 +27,7 @@ public class PostsTest {
 	private static UrlHelper url = new UrlHelper(iService.protocol(), iService.host(), iService.posts());
 
 	@Before
-	public void setUo() {
+	public void setUp() {
 		random = new Random();
 	}
 
